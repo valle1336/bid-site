@@ -46,11 +46,20 @@ const Effect: NextPage<Props> = ({}) => {
       >
         Klicka för Martin
       </button>
-      <input
+      <br />
+      <input placeholder="Password..."
         className="bg-black border"
         type="text"
         onChange={(event) => {
-          setUser(new User(user.password, user.name));
+          setUser(new User((user.password = event.target.value), user.password));
+        }}
+      />
+     <br />
+     <input placeholder="name..."
+        className="bg-black border"
+        type="text"
+        onChange={(event) => {
+          setUser(new User((user.name = event.target.value), user.name));
         }}
       />
     </div>

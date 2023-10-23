@@ -1,14 +1,21 @@
-import type { NextApiRequest, NextApiResponse } from 'next'
-type Data = {
-name: string
-isPresent: boolean
-}
+import user from "@/classes/user";
+import type { NextApiRequest, NextApiResponse } from "next";
+
+const myUser = new user("Benny", "12345");
+
 export default function handler(
-req: NextApiRequest,
-res: NextApiResponse<Data>
+  req: NextApiRequest,
+  res: NextApiResponse<user>
 ) {
-res.status(200).json({
-    name: 'John Doe',
-    isPresent: true
-})
+  switch (res.statusCode) {
+    case 200:
+      res.status(200).json(myUser);
+      break;
+    case 300:
+      res.status(300).json(myUser);
+      break;
+
+      default:
+        res.status(500).json(new user("", ""));
+  }
 }
