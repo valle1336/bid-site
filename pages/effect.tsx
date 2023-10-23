@@ -17,6 +17,16 @@ const Effect: NextPage<Props> = ({}) => {
   const [increase, setIncrease] = useState<number>(0);
   const [user, setUser] = useState<User>(new User("Alex", "yellow"));
 
+  async function logJSONData() {
+    const response = await fetch("http://localhost:3000/api/randomDog");
+    const jsonData = await response.json();
+    console.log(jsonData);
+  }
+
+  useEffect(() => {
+    console.log(logJSONData());
+  }, [increase]);
+
   useEffect(() => {
     console.log(user);
     setCounter(counter + 1);
@@ -47,15 +57,19 @@ const Effect: NextPage<Props> = ({}) => {
         Klicka för Martin
       </button>
       <br />
-      <input placeholder="Password..."
+      <input
+        placeholder="Password..."
         className="bg-black border"
         type="text"
         onChange={(event) => {
-          setUser(new User((user.password = event.target.value), user.password));
+          setUser(
+            new User((user.password = event.target.value), user.password)
+          );
         }}
       />
-     <br />
-     <input placeholder="name..."
+      <br />
+      <input
+        placeholder="name..."
         className="bg-black border"
         type="text"
         onChange={(event) => {
