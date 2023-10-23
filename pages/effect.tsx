@@ -1,5 +1,6 @@
 import { NextPage } from "next";
 import { use, useEffect, useState } from "react";
+import User from "@/classes/user";
 
 interface Props {}
 
@@ -14,21 +15,44 @@ interface IData {
 const Effect: NextPage<Props> = ({}) => {
   const [counter, setCounter] = useState<number>(0);
   const [increase, setIncrease] = useState<number>(0);
+  const [user, setUser] = useState<User>(new User("Alex", "yellow"));
 
   useEffect(() => {
-    console.log("Hello!");
+    console.log(user);
     setCounter(counter + 1);
   }, [increase]); //Så fort det vi matar in i arrayen ändras så kommer useEffect köras
 
   return (
     <div>
-      <h1 className="font-bold text-4xl">Counter value: {counter}</h1>
-      <p>The value of increase is: {increase} and value of useEffect is: {counter}</p>
+      <h1 className="font-bold text-4xl">
+        Current user: {user.password + " " + user.name}
+      </h1>
+      <p>
+        The value of increase is: {increase} and value of useEffect is:{" "}
+        {counter}
+      </p>
       <button
         onClick={() => {
           setIncrease(increase + 1);
         }}
-      >Klicka här</button>
+      >
+        Klicka här
+      </button>
+      <br />
+      <button
+        onClick={() => {
+          setUser(new User("Martin", "totoro"));
+        }}
+      >
+        Klicka för Martin
+      </button>
+      <input
+        className="bg-black border"
+        type="text"
+        onChange={(event) => {
+          setUser(new User(user.password, user.name));
+        }}
+      />
     </div>
   );
 };
